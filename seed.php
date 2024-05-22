@@ -59,7 +59,7 @@
     echo "Submitting a project...<br />";
     $project_sql = "INSERT INTO `projects` (projectID, userID, hackathonID, title, description, image, dateSubmitted)
                        VALUES (NULL, 2, 1, 'Innovative submission', 'This is a very innovative solution for the current problem',
-                               'test_binary_wrong', '2024-05-22')";
+                               'images/projects/project1.png', '2024-05-22')";
     
     if ($conn->query($project_sql)) {
         echo "Successfully submitted a project.<br />";
