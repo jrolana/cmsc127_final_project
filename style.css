@@ -1,0 +1,28 @@
+.inter-inter {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+    font-variation-settings:
+        "slnt" 0;
+}
+
+* {
+    font-family: "Inter", sans-serif;
+}
+
+p {
+    font-size: 14px;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+li {
+    border: 1px solid black;
+    padding: 0% 2.5% 2.5% 2.5%;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+}
