@@ -85,7 +85,7 @@
                            hackathonID INT UNSIGNED NOT NULL,
                            title VARCHAR(200) NOT NULL,
                            description VARCHAR(500) NOT NULL,
-                           image LONGBLOB NOT NULL,
+                           image VARCHAR(1024) NOT NULL,
                            dateSubmitted DATE NOT NULL,
                            FOREIGN KEY (hackathonID) REFERENCES hackathons (hackathonID),
                            FOREIGN KEY (userID) REFERENCES users (userID))";
