@@ -5,6 +5,7 @@ $adminID = $_SESSION["adminID"];
 
 if (empty($adminID)) {
     header("Location: login/");
+    exit();
 }
 ?>
 

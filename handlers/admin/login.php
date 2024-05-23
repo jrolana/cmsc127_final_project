@@ -3,13 +3,13 @@ session_start();
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
     header("Location: /cmsc127_final_project/admin/login");
-    exit;
+    exit();
 }
 
 
 if (empty($_POST["adminID"]) || empty($_POST["password"])) {
     header("Location: /cmsc127_final_project/admin/login/?error=Missing Fields");
-    exit;
+    exit();
 }
 
 include "../../db_connector.php";
