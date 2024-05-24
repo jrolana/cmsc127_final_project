@@ -39,7 +39,7 @@ if ($conn->query($user_roles_sql)) {
 echo "Creating a hackathon...<br />";
 $hackathon_sql = "INSERT INTO `hackathons` (hackathonID, theme, description, dateStart, dateEnd, winningProjectID)
                        VALUES (1, 'Innovating the Green Landscapes', 'Create and Innovate for our farmers and fishermen.',
-                               '2024-05-16', '2024-05-23', NULL)";
+                               '2024-06-16', '2024-06-23', NULL)";
 
 if ($conn->query($hackathon_sql)) {
     echo "Successfully created a hackathon.<br />";
@@ -49,7 +49,7 @@ if ($conn->query($hackathon_sql)) {
 
 $hackathon_sql = "INSERT INTO `hackathons` (theme, description, dateStart, dateEnd, winningProjectID)
                        VALUES ('Sustainable Agriculture Innovations for Urban Food Deserts', 'The hackathon will focus on addressing the challenge of food deserts in urban areas, where residents have limited access to fresh and affordable produce, leading to higher rates of diet-related health issues and food insecurity.',
-                               '2024-05-22', '2024-05-29', NULL)";
+                               '2024-06-22', '2024-06-29', NULL)";
 
 if ($conn->query($hackathon_sql)) {
     echo "Successfully created a hackathon.<br />";
@@ -67,9 +67,19 @@ if ($conn->query($hackathon_sql)) {
     echo "Error: " . $hackathon_sql . "<br />" . $conn->error . "<br />";
 }
 
+$hackathon_sql = "INSERT INTO `hackathons` (theme, description, dateStart, dateEnd, winningProjectID)
+                       VALUES ('Lorem ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                               '2024-04-03', '2024-04-10', NULL)";
+
+if ($conn->query($hackathon_sql)) {
+    echo "Successfully created a hackathon.<br />";
+} else {
+    echo "Error: " . $hackathon_sql . "<br />" . $conn->error . "<br />";
+}
+
 echo "Joining a hackathon...<br />";
 $participate_sql = "INSERT INTO `participates` (userID, hackathonID)
-                        VALUES (2, 1), (3, 2), (3,3)";
+                        VALUES (2, 1), (3, 2), (3,3), (2, 4)";
 
 if ($conn->query($participate_sql)) {
     echo "Successfully joined a hackathon.<br />";
