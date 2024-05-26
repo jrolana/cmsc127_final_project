@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Submit Project</title>
 
     <link href="/cmsc127_final_project/submit/style.css" rel="stylesheet">
     <link href="/cmsc127_final_project/global.css" rel="stylesheet">
@@ -23,7 +23,7 @@
         include '..\db_connector.php';
         $hackathonID = 4;
         // $hackathonID = $_GET['hackathonID'];
-        $hackathon_sql = "SELECT * FROM hackathons WHERE hackathonID=$hackathonID";
+        $hackathon_sql = "SELECT * FROM hackathons WHERE hackathonID=$hackathonID LIMIT 1";
         $result = $conn->query($hackathon_sql);
 
         if ($result) {
