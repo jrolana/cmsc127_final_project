@@ -7,8 +7,10 @@ echo "Populating DB...<br />";
 
 echo "Creating users...<br/>";
 $users_sql = "INSERT INTO `users` (userID, username, password, name)
+
                   VALUES (1, 'admin', 'admin', 'admin'), (2, 'ezra', 'password', 'ezra'),
                         (3, 'jhoanna', 'password', 'jhoanna')";
+
 
 if ($conn->query($users_sql)) {
     echo "Successfully created users.<br />";
@@ -28,7 +30,9 @@ if ($conn->query($roles_sql)) {
 
 echo "Assigning user roles...<br />";
 $user_roles_sql = "INSERT INTO `user_roles` (userID, roleID)
+
                   VALUES (1, 1), (2, 2), (3, 2)";
+
 
 if ($conn->query($user_roles_sql)) {
     echo "Successfully assigned user roles.<br />";
@@ -71,6 +75,7 @@ $hackathon_sql = "INSERT INTO `hackathons` (theme, description, dateStart, dateE
                        VALUES ('Lorem ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
                                '2024-04-03', '2024-04-10', NULL)";
 
+
 if ($conn->query($hackathon_sql)) {
     echo "Successfully created a hackathon.<br />";
 } else {
@@ -90,7 +95,9 @@ if ($conn->query($participate_sql)) {
 echo "Submitting a project...<br />";
 $project_sql = "INSERT INTO `projects` (projectID, userID, hackathonID, title, description, image, dateSubmitted)
                        VALUES (NULL, 2, 1, 'Innovative submission', 'This is a very innovative solution for the current problem',
-                               'test_binary_wrong', '2024-05-22')";
+                  'images/projects/project1.png', '2024-05-22')";
+
+
 
 if ($conn->query($project_sql)) {
     echo "Successfully submitted a project.<br />";
@@ -99,3 +106,5 @@ if ($conn->query($project_sql)) {
 }
 
 $conn->close();
+
+?>
