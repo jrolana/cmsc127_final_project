@@ -1,5 +1,4 @@
 main {
-    
     display: flex;
     flex-direction: column;
 }
@@ -14,6 +13,7 @@ ul {
     display: flex;
     gap: 25px;
     margin: 25px 0px 50px 0px;
+
 }
 
 li {
@@ -24,4 +24,8 @@ li {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.winner {
+    color: rgb(240, 167, 40)
 }

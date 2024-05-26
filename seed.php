@@ -103,5 +103,23 @@ if ($conn->query($project_sql)) {
     echo "Error: " . $project_sql . "<br />" . $conn->error . "<br />";
 }
 
+echo "Submitting a project...<br />";
+$project_sql = "INSERT INTO `projects` (projectID, userID, hackathonID, title, description, image, dateSubmitted)
+                       VALUES (NULL, 3, 3, 'Innovative submission', 'This is a very innovative solution for the current problem',
+                  'images/projects/project1.png', '2024-05-01')";
+
+if ($conn->query($project_sql)) {
+    echo "Successfully submitted a project.<br />";
+} else {
+    echo "Error: " . $project_sql . "<br />" . $conn->error . "<br />";
+}
+
+$hackathon_sql = "UPDATE `hackathons` SET winningProjectID=2 WHERE hackathonID=3";
+
+if ($conn->query($hackathon_sql)) {
+    echo "Successfully updated a hackathon.<br />";
+} else {
+    echo "Error: " . $hackathon_sql . "<br />" . $conn->error . "<br />";
+}
 
 $conn->close();

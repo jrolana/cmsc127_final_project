@@ -107,8 +107,20 @@
                     echo "<li>" .
                         "<h3>" . $hackathon["theme"] . "</h3>" .
                         "<p>" . $hackathon["description"] . "</p>" .
-                        "<p>" . $hackathon["dateStart"] . " to " . $hackathon["dateEnd"] . "</p>" .
-                        "</li>";
+                        "<p>" . $hackathon["dateStart"] . " to " . $hackathon["dateEnd"] . "</p>";
+
+                    $winner_sql = "SELECT title, username FROM projects NATURAL JOIN users
+                                    WHERE projectID='{$hackathon['winningProjectID']}' LIMIT 1";
+                    $winner = $conn->query($winner_sql);
+
+                    if ((!$winner) || empty($winner)) {
+                        echo "</li>";
+                        continue;
+                    }
+
+                    $winner  = $winner->fetch_row();
+
+                    echo "<p class='winner'>Winner: " . $winner[0] . " by " . $winner[1] . "</p>";
                 }
             }
             ?>
