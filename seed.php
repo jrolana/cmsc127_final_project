@@ -97,14 +97,11 @@ $project_sql = "INSERT INTO `projects` (projectID, userID, hackathonID, title, d
                        VALUES (NULL, 2, 1, 'Innovative submission', 'This is a very innovative solution for the current problem',
                   'images/projects/project1.png', '2024-05-22')";
 
-
-
 if ($conn->query($project_sql)) {
     echo "Successfully submitted a project.<br />";
 } else {
     echo "Error: " . $project_sql . "<br />" . $conn->error . "<br />";
 }
 
-$conn->close();
 
-?>
+$conn->close();

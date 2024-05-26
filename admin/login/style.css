@@ -13,16 +13,11 @@ form {
     border-radius: 20px;
 }
 
-form > * + * {
+form>*+* {
     margin-top: 20px;
 }
 
 label {
     display: inline-block;
     min-width: 80px;
-}
-
-.error {
-    font-size: 15px;
-    margin-top: 10px;
 }
