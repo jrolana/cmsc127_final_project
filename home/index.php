@@ -24,10 +24,17 @@
     <main>
         <?php
         include '../db_connector.php';
-        $currentUserID = 2;
+        session_start();
+
+        if (isset($_SESSION["userID"])) {
+            $currentUserID = $_SESSION["userID"];
+        } else {
+            $currentUserID = -1;
+        }
 
         $currentDate = date("Y-m-d");
         ?>
+
         <h1>Hackathons</h1>
         <h2>Joined Hackathons</h2>
         <ul>
@@ -86,7 +93,7 @@
                         "<p>" . $hackathon["dateStart"] . " to " . $hackathon["dateEnd"] . "</p>" .
 
                         "<form action='/cmsc127_final_project/handlers/join.php' method='GET'>
-                        <input type='hidden' name='hackathonID' value='$hackathonID'></input>
+                        <input type='hidden' name='hackathonID' value='{$hackathon['hackathonID']}'></input>
                         <input type='submit' value='Join'/>
                         </form>";
                     "</li>";
@@ -114,14 +121,11 @@
                             WHERE projectID='{$hackathon['winningProjectID']}' LIMIT 1";
                     $winner = $conn->query($winner_sql);
 
-                    if ((!$winner) || empty($winner)) {
-                        echo "</li>";
-                        continue;
+                    if (($winner = $winner->fetch_row()) != null) {
+                        echo "<p class='winner'>Winner: " . $winner[0] . " by " . $winner[1] . "</p>";
                     }
 
-                    $winner  = $winner->fetch_row();
-
-                    echo "<p class='winner'>Winner: " . $winner[0] . " by " . $winner[1] . "</p>";
+                    echo "</li>";
                 }
             }
             ?>
