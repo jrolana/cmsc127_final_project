@@ -145,14 +145,16 @@ if (isset($_SESSION["userID"])) {
             if ($hackathons) {
                 while ($hackathon = $hackathons->fetch_assoc()) {
                     echo "<li>" .
+                        "<div>" .
                         "<h3>" . $hackathon["theme"] . "</h3>" .
                         "<p>" . $hackathon["description"] . "</p>" .
-                        "<p>" . $hackathon["dateStart"] . " to " . $hackathon["dateEnd"] . "</p>";
+                        "<p>" . $hackathon["dateStart"] . " to " . $hackathon["dateEnd"] . "</p>" .
+                        "</div>";
 
-                    $winner_sql = "SELECT title, username FROM
+                    $hackathon_sql = "SELECT title, username FROM
                             projects INNER JOIN users ON projects.userID=users.userID
                             WHERE projectID='{$hackathon['winningProjectID']}' LIMIT 1";
-                    $winner = $conn->query($winner_sql);
+                    $winner = $conn->query($hackathon_sql);
 
                     if (!empty($winner = $winner->fetch_row())) {
                         echo "<p class='winner'>Winner: " . $winner[0] . " by " . $winner[1] . "</p>";
