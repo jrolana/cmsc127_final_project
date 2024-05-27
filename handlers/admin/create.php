@@ -19,7 +19,7 @@ $dateStart = $_POST["date-start"];
 $dateEnd = $_POST["date-end"];
 
 if (date($dateStart) >= date($dateEnd)) {
-    header("Location: {$_SERVER['HTTP_REFERER']}&error=Invalid date");
+    header("Location: /cmsc127_final_project/admin/?error=Invalid date");
     exit();
 }
 
