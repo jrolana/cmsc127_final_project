@@ -1,6 +1,46 @@
-nav {
-    padding: 30px 50px;
+form#create > * + * {
+    margin-top: 20px;
+}
+
+form#create {
+    margin-bottom: 50px;
+}
+
+label {
+    display: block;
+    min-width: 80px;
+    margin: 0px 0px 5px;
+}
+
+textarea {
+    width: 500px;
+    height: 70px;
+}
+
+#date-container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    gap: 20px;
+}
+
+th,
+td {
+    padding: 5px 10px;
+}
+
+tr {
+    border: 1px solid gray;
+}
+
+td form {
+    display: flex;
+    gap: 5px;
+}
+
+.action form {
+    display: inline;
+}
+
+.winner select {
+    min-width: 150px;
+    max-width: 150px;
 }

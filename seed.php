@@ -105,7 +105,7 @@ if ($conn->query($project_sql)) {
 
 echo "Submitting a project...<br />";
 $project_sql = "INSERT INTO `projects` (projectID, userID, hackathonID, title, description, image, dateSubmitted)
-                       VALUES (NULL, 3, 3, 'Innovative submission', 'This is a very innovative solution for the current problem',
+                       VALUES (NULL, 3, 3, 'Nice project', 'Nice project there mate!',
                   'images/projects/project1.png', '2024-05-01')";
 
 if ($conn->query($project_sql)) {
