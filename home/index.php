@@ -133,13 +133,13 @@ if (isset($_SESSION["userID"])) {
         <h2>Past Hackathons</h2>
         <ul>
             <?php
-            $past_sql = "SELECT hackathonID FROM participates WHERE DATE(dateEnd) < '$currentDate'";
+            $hackathons_sql = "SELECT * FROM hackathons WHERE DATE(dateEnd) < '$currentDate'";
 
             if (isset($currentUserID)) {
-                $past_sql = "SELECT hackathonID FROM participates WHERE DATE(dateEnd) < '$currentDate' AND userID!=$currentUserID";
+                $joined_sql = "SELECT hackathonID FROM participates WHERE userID='$currentUserID'";
+                $hackathons_sql = "SELECT * FROM hackathons WHERE DATE(dateEnd) < '$currentDate' AND hackathonID NOT IN ($joined_sql)";
             }
 
-            $hackathons_sql = "SELECT * FROM hackathons WHERE hackathonID IN ($past_sql)";
             $hackathons = $conn->query($hackathons_sql);
 
             if ($hackathons) {
