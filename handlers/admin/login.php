@@ -44,6 +44,7 @@ if ($result = $conn->query($user_sql)) {
 
 if ($success == 1) {
     $_SESSION["adminID"] = $user["userID"];
+    $_SESSION["userID"] = $user["userID"];
 
     header("Location: /cmsc127_final_project/admin");
 } else {

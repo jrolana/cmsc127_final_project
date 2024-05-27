@@ -13,7 +13,7 @@ ul {
     display: flex;
     gap: 25px;
     margin: 25px 0px 50px 0px;
-
+    flex-wrap: wrap;
 }
 
 li {
@@ -21,11 +21,20 @@ li {
     border-radius: 20px;
     padding: 40px 20px;
     width: 500px;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 10px;
 }
 
+li div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
 .winner {
-    color: rgb(240, 167, 40)
+    color: rgb(240, 167, 40);
 }

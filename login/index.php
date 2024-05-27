@@ -33,6 +33,14 @@
             echo "<p class='error'>Error: " . htmlspecialchars($error) . "</p>";
         }
         ?>
+
+        <p id="no-account">No account?
+            <span class="underline">
+                <a href="/cmsc127_final_project/register">
+                    Register instead
+                </a>
+            </span>
+        </p>
     </form>
 </body>
 
