@@ -21,12 +21,12 @@ $dateEnd = $_POST["date-end"];
 
 
 if (empty($dateStart) || empty($dateEnd) || empty($theme) || empty($description) || empty($hackathonID)) {
-    header("Location: {$_SERVER['HTTP_REFERER']}/?error=Missing Fields");
+    header("Location: {$_SERVER['HTTP_REFERER']}&error=Missing Fields");
     exit();
 }
 
 if (date($dateStart) >= date($dateEnd)) {
-    header("Location: {$_SERVER['HTTP_REFERER']}/?error=Invalid date");
+    header("Location: {$_SERVER['HTTP_REFERER']}&error=Invalid date");
     exit();
 }
 
@@ -37,7 +37,7 @@ $edit_sql = "UPDATE hackathons set theme='$theme', description='$description', d
 if ($conn->query($edit_sql)) {
     header("Location: /cmsc127_final_project/admin/");
 } else {
-    header("Location: {$_SERVER['HTTP_REFERER']}/?error={$conn->error}");
+    header("Location: {$_SERVER['HTTP_REFERER']}&error={$conn->error}");
 }
 
 

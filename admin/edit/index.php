@@ -65,7 +65,7 @@ $dateEnd = $hackathon["dateEnd"];
         <a href="/cmsc127_final_project/handlers/logout.php">Log out</a>
     </nav>
     <main>
-        <form id="create" action='/cmsc127_final_project/handlers/admin/edit.php' method='POST'>
+        <form action='/cmsc127_final_project/handlers/admin/edit.php' method='POST'>
             <h3>Edit Hackathon</h3>
 
             <div>
@@ -93,14 +93,14 @@ $dateEnd = $hackathon["dateEnd"];
 
             <input type="hidden" name="hackathonID" value="<?php echo $hackathonID ?>" />
             <button type="submit">Edit</button>
-            <?php
-            if (isset($_GET["error"])) {
-                $error = $_GET["error"];
-                echo "<p class='error'>Error: " . htmlspecialchars($error) . "</p>";
-            }
-            ?>
+            <a href="/cmsc127_final_project/admin/"><button type="button">Cancel</button></a>
         </form>
-        <a href="/cmsc127_final_project/admin/"><button>Cancel</button></a>
+        <?php
+        if (isset($_GET["error"])) {
+            $error = $_GET["error"];
+            echo "<p class='error'>Error: " . htmlspecialchars($error) . "</p>";
+        }
+        ?>
     </main>
 </body>
 
