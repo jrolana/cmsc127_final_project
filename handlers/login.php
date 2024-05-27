@@ -14,8 +14,6 @@ if (empty($_POST["userID"]) || empty($_POST["password"])) {
 
 include "../db_connector.php";
 
-define('ADMIN_ROLE', 1);
-
 $userID = $_POST["userID"];
 $password = $_POST["password"];
 
