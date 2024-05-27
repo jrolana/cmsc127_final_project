@@ -18,6 +18,11 @@ $description = $_POST["description"];
 $dateStart = $_POST["date-start"];
 $dateEnd = $_POST["date-end"];
 
+if (date($dateStart) >= date($dateEnd)) {
+    header("Location: {$_SERVER['HTTP_REFERER']}&error=Invalid date");
+    exit();
+}
+
 if (empty($dateStart) || empty($dateEnd) || empty($theme) || empty($description)) {
     header("Location: /cmsc127_final_project/admin/?error=Missing Fields");
     exit();
@@ -26,7 +31,12 @@ if (empty($dateStart) || empty($dateEnd) || empty($theme) || empty($description)
 include "../../db_connector.php";
 
 $edit_sql = "INSERT INTO hackathons VALUES(NULL, '$theme', '$description', '$dateStart', '$dateEnd', NULL)";
-$conn->query($edit_sql);
+if ($conn->query($edit_sql)) {
+    header("Location: /cmsc127_final_project/admin/");
+} else {
+    header("Location: /cmsc127_final_project/admin/?error={$conn->error}");
+}
+
 
 header("Location: /cmsc127_final_project/admin/");
 
