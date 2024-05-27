@@ -96,7 +96,7 @@ if (empty($adminID)) {
                     $result = $conn->query($submitted_sql);
                     $hasNoWinner = $hackathon['winningProjectID'] == null ? 'selected' : '';
 
-                    echo "<td>
+                    echo "<td class='winner'>
                                 <form action='/cmsc127_final_project/handlers/admin/winner.php' method='POST'>
                                   <select name='projectID' required>
                                     <option disabled $hasNoWinner>None</option>";

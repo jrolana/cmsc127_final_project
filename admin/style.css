@@ -40,7 +40,7 @@ td form {
     display: inline;
 }
 
-select {
-    flex: 1;
-    max-width: 160px;
+.winner select {
+    min-width: 150px;
+    max-width: 150px;
 }
