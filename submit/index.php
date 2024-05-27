@@ -21,8 +21,8 @@
 
         <?php
         include '..\db_connector.php';
-        $hackathonID = 4;
-        // $hackathonID = $_GET['hackathonID'];
+
+        $hackathonID = $_GET['hackathonID'];
         $hackathon_sql = "SELECT * FROM hackathons WHERE hackathonID=$hackathonID LIMIT 1";
         $result = $conn->query($hackathon_sql);
 

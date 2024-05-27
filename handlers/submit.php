@@ -1,11 +1,12 @@
 <?php
+session_start();
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
     header("Location: /cmsc127_final_project/home/index.php");
     exit();
 }
 
-$currentUserID = 2;
+$currentUserID = $_SESSION["userID"];
 $hackathonID = $_POST["hackathonID"];
 $projTitle = $_POST["project-title"];
 $projDescription = $_POST["project-description"];
@@ -53,6 +54,7 @@ if (
 }
 
 // Check if $uploadOk is set to 0 by an error
+$error = http_build_query($errors);
 if ($uploadOk == 0) {
     array_push($errors, "Sorry, your file was not uploaded.");
     header("Location: /cmsc127_final_project/home/?error=$error");
@@ -60,7 +62,6 @@ if ($uploadOk == 0) {
 }
 
 // if everything is ok, try to upload file
-$error = http_build_query($errors);
 if (!move_uploaded_file($projImage["tmp_name"], $target_file)) {
     $error = "Sorry, there was an error uploading your file.";
     header("Location: /cmsc127_final_project/home/?error=$error");
