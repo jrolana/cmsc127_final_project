@@ -109,8 +109,9 @@
                         "<p>" . $hackathon["description"] . "</p>" .
                         "<p>" . $hackathon["dateStart"] . " to " . $hackathon["dateEnd"] . "</p>";
 
-                    $winner_sql = "SELECT title, username FROM projects NATURAL JOIN users
-                                    WHERE projectID='{$hackathon['winningProjectID']}' LIMIT 1";
+                    $winner_sql = "SELECT title, username FROM
+                            projects INNER JOIN users ON projects.userID=users.userID
+                            WHERE projectID='{$hackathon['winningProjectID']}' LIMIT 1";
                     $winner = $conn->query($winner_sql);
 
                     if ((!$winner) || empty($winner)) {
