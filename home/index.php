@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+$currentUserID;
+if (isset($_SESSION["userID"])) {
+    $currentUserID = $_SESSION["userID"];
+}
+?>
+
 <html lang="en">
 
 <head>
@@ -18,20 +27,22 @@
         <a class="bold" href="/cmsc127_final_project/home/">
             <h3>komshat</h3>
         </a>
-        <a href="/cmsc127_final_project/handlers/logout.php">Log out</a>
+
+        <?php
+
+        if (isset($currentUserID)) {
+            echo "<a href='/cmsc127_final_project/handlers/logout.php'>Log out</a>";
+        } else {
+            echo "<a href='/cmsc127_final_project/login/'>Log in</a>";
+        }
+
+        ?>
+
     </nav>
 
     <main>
         <?php
         include '../db_connector.php';
-        session_start();
-
-        if (isset($_SESSION["userID"])) {
-            $currentUserID = $_SESSION["userID"];
-        } else {
-            // users can browse home w/o registring/logging in
-            $currentUserID = -1;
-        }
 
         $currentDate = date("Y-m-d");
         ?>
@@ -40,41 +51,45 @@
         <h2>Joined Hackathons</h2>
         <ul>
             <?php
-            $joined_sql = "SELECT hackathonID FROM participates WHERE userID=$currentUserID";
-            $hackathons_sql = "SELECT * FROM hackathons WHERE hackathonID IN ($joined_sql) ORDER BY dateEnd DESC";
-            $hackathons = $conn->query($hackathons_sql);
+            if (isset($currentUserID)) {
+                $joined_sql = "SELECT hackathonID FROM participates WHERE userID=$currentUserID";
+                $hackathons_sql = "SELECT * FROM hackathons WHERE hackathonID IN ($joined_sql) ORDER BY dateEnd DESC";
+                $hackathons = $conn->query($hackathons_sql);
 
-            if ($hackathons) {
-                while ($hackathon = $hackathons->fetch_assoc()) {
-                    echo "<li>" .
-                        "<h3>" . $hackathon["theme"] . "</h3>" .
-                        "<p>" . $hackathon["description"] . "</p>" .
-                        "<p>" . $hackathon["dateStart"] . " to " . $hackathon["dateEnd"] . "</p>";
+                if ($hackathons) {
+                    while ($hackathon = $hackathons->fetch_assoc()) {
+                        echo "<li>" .
+                            "<div>" .
+                            "<h3>" . $hackathon["theme"] . "</h3>" .
+                            "<p>" . $hackathon["description"] . "</p>" .
+                            "<p>" . $hackathon["dateStart"] . " to " . $hackathon["dateEnd"] . "</p>" .
+                            "</div>";
 
-                    if ($hackathon["dateEnd"] <= $currentDate) {
-                        echo "</li>";
-                        continue;
-                    }
-
-                    $hackathonID = $hackathon["hackathonID"];
-                    $participated_sql = "SELECT projectID FROM projects WHERE hackathonID=$hackathonID AND userID=$currentUserID";
-                    $result = $conn->query($participated_sql);
-                    $participated = empty($result->fetch_all());
-
-                    echo "<form action='/cmsc127_final_project/submit/index.php' method='GET'>
-                        <input type='hidden' name='hackathonID' value='$hackathonID'></input>
-                        <input type='submit' value='Submit a project'" . ($participated ? "" : " disabled") . "/>
-                        </form>";
-
-                    if (isset($_GET["error"])) {
-                        $error = $_GET["error"];
-                        $errors;
-                        parse_str($error, $errors);
-                        foreach ($errors as $err) {
-                            echo "<p class='error'>Error: " . htmlspecialchars($err) . "</p>";
+                        if ($hackathon["dateEnd"] <= $currentDate) {
+                            echo "</li>";
+                            continue;
                         }
+
+                        $hackathonID = $hackathon["hackathonID"];
+                        $participated_sql = "SELECT projectID FROM projects WHERE hackathonID=$hackathonID AND userID=$currentUserID";
+                        $result = $conn->query($participated_sql);
+                        $participated = empty($result->fetch_all());
+
+                        echo "<form action='/cmsc127_final_project/submit/index.php' method='GET'>
+                            <input type='hidden' name='hackathonID' value='$hackathonID'></input>
+                            <input type='submit' value='Submit a project'" . ($participated ? "" : " disabled") . "/>
+                            </form>";
+
+                        if (isset($_GET["error"])) {
+                            $error = $_GET["error"];
+                            $errors;
+                            parse_str($error, $errors);
+                            foreach ($errors as $err) {
+                                echo "<p class='error'>Error: " . htmlspecialchars($err) . "</p>";
+                            }
+                        }
+                        echo "</li>";
                     }
-                    echo "</li>";
                 }
             }
             ?>
@@ -83,22 +98,33 @@
         <h2>Available Hackathons</h2>
         <ul>
             <?php
-            $available_sql = "SELECT hackathonID FROM participates WHERE DATE(dateEnd) > '$currentDate' AND userID!=$currentUserID";
-            $hackathons_sql = "SELECT * FROM hackathons WHERE hackathonID IN ($available_sql)";
+            $hackathons_sql = "SELECT * FROM hackathons WHERE DATE(dateEnd) > '$currentDate'";
+
+            // Get hackathons the user has not yet joined
+            if (isset($currentUserID)) {
+                $joined_sql = "SELECT hackathonID FROM participates WHERE userID='$currentUserID'";
+                $hackathons_sql = "SELECT * FROM hackathons WHERE DATE(dateEnd) > '$currentDate' AND hackathonID NOT IN ($joined_sql)";
+            }
+
             $hackathons = $conn->query($hackathons_sql);
 
             if ($hackathons) {
                 while ($hackathon = $hackathons->fetch_assoc()) {
                     echo "<li>" .
+                        "<div>" .
                         "<h3>" . $hackathon["theme"] . "</h3>" .
                         "<p>" . $hackathon["description"] . "</p>" .
                         "<p>" . $hackathon["dateStart"] . " to " . $hackathon["dateEnd"] . "</p>" .
+                        "</div>";
 
-                        "<form action='/cmsc127_final_project/handlers/join.php' method='GET'>
+                    if (isset($currentUserID)) {
+                        echo "<form action='/cmsc127_final_project/handlers/join.php' method='POST'>
                         <input type='hidden' name='hackathonID' value='{$hackathon['hackathonID']}'></input>
                         <input type='submit' value='Join'/>
                         </form>";
-                    "</li>";
+                    }
+
+                    echo "</li>";
                 }
             }
             ?>
@@ -107,8 +133,13 @@
         <h2>Past Hackathons</h2>
         <ul>
             <?php
-            $past_sql = "SELECT hackathonID FROM participates WHERE DATE(dateEnd) < '$currentDate' AND userID!=$currentUserID";
-            $hackathons_sql = "SELECT * FROM hackathons WHERE hackathonID IN ($past_sql)";
+            $hackathons_sql = "SELECT * FROM hackathons WHERE DATE(dateEnd) < '$currentDate'";
+
+            if (isset($currentUserID)) {
+                $joined_sql = "SELECT hackathonID FROM participates WHERE userID='$currentUserID'";
+                $hackathons_sql = "SELECT * FROM hackathons WHERE DATE(dateEnd) < '$currentDate' AND hackathonID NOT IN ($joined_sql)";
+            }
+
             $hackathons = $conn->query($hackathons_sql);
 
             if ($hackathons) {

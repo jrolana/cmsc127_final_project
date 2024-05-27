@@ -16,6 +16,10 @@
     margin-top: 10px;
 }
 
+.underline {
+    text-decoration: underline;
+}
+
 .inter-inter {
     font-family: 'Inter', sans-serif;
     font-optical-sizing: auto;
