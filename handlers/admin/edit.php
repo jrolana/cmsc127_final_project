@@ -19,8 +19,14 @@ $description = $_POST["description"];
 $dateStart = $_POST["date-start"];
 $dateEnd = $_POST["date-end"];
 
+
 if (empty($dateStart) || empty($dateEnd) || empty($theme) || empty($description) || empty($hackathonID)) {
     header("Location: {$_SERVER['HTTP_REFERER']}/?error=Missing Fields");
+    exit();
+}
+
+if (date($dateStart) >= date($dateEnd)) {
+    header("Location: {$_SERVER['HTTP_REFERER']}/?error=Invalid date");
     exit();
 }
 

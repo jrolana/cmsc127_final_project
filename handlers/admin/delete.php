@@ -25,7 +25,7 @@ include "../../db_connector.php";
 $hackathon_sql = "DELETE FROM hackathons WHERE hackathonID='$hackathonID'";
 $conn->query($hackathon_sql);
 
-$participants_sql = "DELETE FROM participants WHERE hackathonID='$hackathonID'";
+$participants_sql = "DELETE FROM participates WHERE hackathonID='$hackathonID'";
 $conn->query($participants_sql);
 
 $projects_sql = "DELETE FROM projects WHERE hackathonID='$hackathonID'";
