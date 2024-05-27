@@ -59,7 +59,8 @@
                 </li>
                 <li>
                     <label for=" project-description">Description</label>
-                    <textarea name="project-description" required>Enter your project description</textarea>
+                    <textarea name="project-description" required
+                        placeholder="Enter your project description"></textarea>
                 </li>
                 <li>
                     <label for="project-img">Choose project thumbnail</label>
