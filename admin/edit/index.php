@@ -58,6 +58,12 @@ $dateEnd = $hackathon["dateEnd"];
 </head>
 
 <body>
+    <nav>
+        <a class="bold" href="/cmsc127_final_project/home/">
+            <h3>komshat</h3>
+        </a>
+        <a href="/cmsc127_final_project/handlers/logout.php">Log out</a>
+    </nav>
     <main>
         <form id="create" action='/cmsc127_final_project/handlers/admin/edit.php' method='POST'>
             <h3>Edit Hackathon</h3>
