@@ -84,7 +84,7 @@ if ($conn->query($hackathon_sql)) {
 
 echo "Joining a hackathon...<br />";
 $participate_sql = "INSERT INTO `participates` (userID, hackathonID)
-                        VALUES (2, 1), (3, 2), (3,3), (2, 4)";
+                        VALUES (2, 1), (3, 2), (3,3), (2, 4), (1, 1)";
 
 if ($conn->query($participate_sql)) {
     echo "Successfully joined a hackathon.<br />";

@@ -29,6 +29,7 @@
         if (isset($_SESSION["userID"])) {
             $currentUserID = $_SESSION["userID"];
         } else {
+            // users can browse home w/o registring/logging in
             $currentUserID = -1;
         }
 
@@ -57,11 +58,12 @@
 
                     $hackathonID = $hackathon["hackathonID"];
                     $participated_sql = "SELECT projectID FROM projects WHERE hackathonID=$hackathonID AND userID=$currentUserID";
-                    $participated = $conn->query($participated_sql) != null;
+                    $result = $conn->query($participated_sql);
+                    $participated = empty($result->fetch_all());
 
                     echo "<form action='/cmsc127_final_project/submit/index.php' method='GET'>
                         <input type='hidden' name='hackathonID' value='$hackathonID'></input>
-                        <input type='submit' value='Submit a project'" . ($participated ? " disabled" : "") . "/>
+                        <input type='submit' value='Submit a project'" . ($participated ? "" : " disabled") . "/>
                         </form>";
 
                     if (isset($_GET["error"])) {
@@ -69,7 +71,7 @@
                         $errors;
                         parse_str($error, $errors);
                         foreach ($errors as $err) {
-                            echo "<p class='error'>" . $err . "</p>";
+                            echo "<p class='error'>Error: " . htmlspecialchars($err) . "</p>";
                         }
                     }
                     echo "</li>";
@@ -121,7 +123,7 @@
                             WHERE projectID='{$hackathon['winningProjectID']}' LIMIT 1";
                     $winner = $conn->query($winner_sql);
 
-                    if (($winner = $winner->fetch_row()) != null) {
+                    if (!empty($winner = $winner->fetch_row())) {
                         echo "<p class='winner'>Winner: " . $winner[0] . " by " . $winner[1] . "</p>";
                     }
 
