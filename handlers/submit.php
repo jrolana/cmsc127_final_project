@@ -18,8 +18,20 @@ if (empty($hackathonID) || empty($projTitle) || empty($projImage) || empty($proj
     exit();
 }
 
+include '../db_connector.php';
+
+// Preliminary check if the user has submitted a project for the hackathon already
+$check_sql = "SELECT * FROM projects WHERE userID=$currentUserID AND hackathonID=$hackathonID LIMIT 1";
+$check_result = $conn->query($check_sql);
+if ($check_result->num_rows > 0) {
+    header("Location: /cmsc127_final_project/home/?error=0=You have already submitted in this hackathon");
+    $conn->close();
+    exit();
+}
+
 $target_dir = "../images/projects/";
 $target_file = $target_dir . basename($projImage["name"]);
+$db_image_path = "/cmsc127_final_project/images/projects/" . basename($projImage["name"]);
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 $errors = array();
@@ -63,16 +75,16 @@ if ($uploadOk == 0) {
 
 // if everything is ok, try to upload file
 if (!move_uploaded_file($projImage["tmp_name"], $target_file)) {
-    $error = "Sorry, there was an error uploading your file.";
-    header("Location: /cmsc127_final_project/home/?error=$error");
+    header("Location: /cmsc127_final_project/home/?error=0=Sorry, there was an error uploading your file.");
     exit();
 }
-include '../db_connector.php';
 
 $project_sql = "INSERT INTO `projects` (userID, hackathonID, title, description, image, dateSubmitted)
-    VALUES('$currentUserID', '$hackathonID', '$projTitle', '$projDescription', '$target_file', '$projDate')";
+    VALUES('$currentUserID', '$hackathonID', '$projTitle', '$projDescription', '$db_image_path', '$projDate')";
 
 if ($result = $conn->query($project_sql)) {
-    header("Location: /cmsc127_final_project/home/");
+    $projectID = $conn->insert_id;
+
+    header("Location: /cmsc127_final_project/project/?id=$projectID");
     $conn->close();
 }

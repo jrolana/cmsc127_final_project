@@ -1,0 +1,23 @@
+img {
+    width: auto;
+    height: 300px;
+
+    margin: 0px auto 20px;
+    display: block;
+}
+
+main {
+    text-align: center;
+}
+
+.user {
+    font-size: 14px;
+    color: gray;
+    margin: 5px 0px 20px;
+}
+
+.info {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0px auto;
+}
