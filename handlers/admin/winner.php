@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 
 $currentAdminID = $_SESSION["adminID"];
 
+// Check if current user is actually an admin
 if (!isset($currentAdminID) || empty($currentAdminID)) {
     header("Location: /cmsc127_final_project/home/");
     exit();
@@ -23,8 +24,8 @@ if (empty($hackathonID) || empty($projectID)) {
 
 include "../../db_connector.php";
 
-$hackathon_sql = "UPDATE hackathons SET winningProjectID='$projectID' WHERE hackathonID='$hackathonID'";
-$conn->query($hackathon_sql);
+$winner_sql = "UPDATE hackathons SET winningProjectID='$projectID' WHERE hackathonID='$hackathonID'";
+$conn->query($winner_sql);
 header("Location: /cmsc127_final_project/admin/");
 
 $conn->close();

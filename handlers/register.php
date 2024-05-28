@@ -27,13 +27,12 @@ try {
         $success = 1;
     }
 } catch (Exception $e) {
+    // Possible that the user registered with a non-unique username
     $error = "User already registered";
 }
 
 if ($success == 1) {
-    $_SESSION["userID"] = $user["userID"];
-
-    header("Location: /cmsc127_final_project/home");
+    header("Location: /cmsc127_final_project/login/");
 } else {
     header("Location: /cmsc127_final_project/register/?error=$error");
 }

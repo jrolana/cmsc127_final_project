@@ -26,7 +26,7 @@
         $hackathon_sql = "SELECT * FROM hackathons WHERE hackathonID=$hackathonID LIMIT 1";
         $result = $conn->query($hackathon_sql);
 
-        if ($result) {
+        if ($result->num_rows > 0) {
             $hackathon = $result->fetch_assoc();
             $theme = $hackathon["theme"];
             $hackathonDesc = $hackathon["description"];

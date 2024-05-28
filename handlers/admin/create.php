@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 
 $currentAdminID = $_SESSION["adminID"];
 
+// Check if current user is an admin
 if (!isset($currentAdminID) || empty($currentAdminID)) {
     header("Location: /cmsc127_final_project/home/");
     exit();
@@ -18,6 +19,7 @@ $description = $_POST["description"];
 $dateStart = $_POST["date-start"];
 $dateEnd = $_POST["date-end"];
 
+// Data validation check
 if (date($dateStart) >= date($dateEnd)) {
     header("Location: /cmsc127_final_project/admin/?error=Invalid date");
     exit();
