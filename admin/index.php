@@ -82,6 +82,7 @@ if (empty($adminID)) {
             $hackathons_sql = "SELECT * FROM hackathons ORDER BY dateEnd DESC";
             $hackathons = $conn->query($hackathons_sql);
 
+            // List all projects
             if ($hackathons) {
                 while ($hackathon = $hackathons->fetch_assoc()) {
 
@@ -138,6 +139,7 @@ if (empty($adminID)) {
         const projects = document.querySelectorAll('.projects');
 
         for (const project of projects) {
+            // Handle view button of selected project
             const select = project.querySelector('select');
             const viewButton = project.querySelector('.view');
 

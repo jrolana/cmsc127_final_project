@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 
 $currentAdminID = $_SESSION["adminID"];
 
+// Check if current user is an admin
 if (!isset($currentAdminID) || empty($currentAdminID)) {
     header("Location: /cmsc127_final_project/home/");
     exit();
@@ -25,6 +26,7 @@ if (empty($dateStart) || empty($dateEnd) || empty($theme) || empty($description)
     exit();
 }
 
+// Data validation check
 if (date($dateStart) >= date($dateEnd)) {
     header("Location: {$_SERVER['HTTP_REFERER']}&error=Invalid date");
     exit();

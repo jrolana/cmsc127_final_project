@@ -31,6 +31,7 @@ if ($check_result->num_rows > 0) {
 
 $target_dir = "../images/projects/";
 $target_file = $target_dir . basename($projImage["name"]);
+// Different than target_dir because we want to have absolute URL naming for the front-end
 $db_image_path = "/cmsc127_final_project/images/projects/" . basename($projImage["name"]);
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));

@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
 
 $currentAdminID = $_SESSION["adminID"];
 
+// Check if current user is an admin
 if (!isset($currentAdminID) || empty($currentAdminID)) {
     header("Location: /cmsc127_final_project/home/");
     exit();
@@ -21,6 +22,11 @@ if (empty($hackathonID)) {
 }
 
 include "../../db_connector.php";
+
+// Delete from
+// Hackathons
+// Participates
+// And also delete all projects associated with the hackathon
 
 $hackathon_sql = "DELETE FROM hackathons WHERE hackathonID='$hackathonID'";
 $conn->query($hackathon_sql);

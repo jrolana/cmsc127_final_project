@@ -50,6 +50,7 @@ if (isset($_SESSION["userID"])) {
         <h1>Hackathons</h1>
 
         <?php
+        // Show joined hackathons if user is logged-in
         if (isset($currentUserID)) {
             echo "<h2>Joined Hackathons</h2>";
             echo "<ul>";
@@ -67,6 +68,7 @@ if (isset($_SESSION["userID"])) {
                         "<p>" . $hackathon["dateStart"] . " to " . $hackathon["dateEnd"] . "</p>" .
                         "</div>";
 
+                    // If hackathon is completed, show only the winning project
                     if (date($hackathon["dateEnd"]) <= $currentDate) {
                         $winner_sql = "SELECT title, username, projectID FROM
                             projects INNER JOIN users ON projects.userID=users.userID
@@ -80,6 +82,7 @@ if (isset($_SESSION["userID"])) {
                         continue;
                     }
 
+                    // Determine if user has already submitted a project
                     $hackathonID = $hackathon["hackathonID"];
                     $submitted_sql = "SELECT projectID FROM projects WHERE hackathonID=$hackathonID AND userID=$currentUserID";
                     $result = $conn->query($submitted_sql);
@@ -99,6 +102,7 @@ if (isset($_SESSION["userID"])) {
                         }
                     }
 
+                    // Show a link to the submitted project
                     if ($submitted) {
                         $project = $result->fetch_assoc();
                         $projectID = $project["projectID"];
@@ -153,6 +157,7 @@ if (isset($_SESSION["userID"])) {
             <?php
             $hackathons_sql = "SELECT * FROM hackathons WHERE DATE(dateEnd) < '$currentDate'";
 
+            // Exclude past hackathons the user has joined, since it is already displayed in the first section
             if (isset($currentUserID)) {
                 $joined_sql = "SELECT hackathonID FROM participates WHERE userID='$currentUserID'";
                 $hackathons_sql = "SELECT * FROM hackathons WHERE DATE(dateEnd) < '$currentDate' AND hackathonID NOT IN ($joined_sql)";
@@ -174,6 +179,7 @@ if (isset($_SESSION["userID"])) {
                             WHERE projectID='{$hackathon['winningProjectID']}' LIMIT 1";
                     $winner = $conn->query($winner_sql);
 
+                    // Show the winner if there is one
                     if (!empty($winner = $winner->fetch_row())) {
                         echo "<a class='winner underline pointer' href='/cmsc127_final_project/project/?id={$winner[2]}'>Winner: " . $winner[0] . " by " . $winner[1] . "</a>";
                     }

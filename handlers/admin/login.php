@@ -14,6 +14,7 @@ if (empty($_POST["adminID"]) || empty($_POST["password"])) {
 
 include "../../db_connector.php";
 
+// Constant for the admin role_id
 define('ADMIN_ROLE', 1);
 
 $adminID = $_POST["adminID"];
@@ -44,6 +45,7 @@ if ($result = $conn->query($user_sql)) {
 
 if ($success == 1) {
     $_SESSION["adminID"] = $user["userID"];
+    // Also set the userID session since we allow admins to participate in hackathons
     $_SESSION["userID"] = $user["userID"];
 
     header("Location: /cmsc127_final_project/admin");
