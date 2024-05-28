@@ -38,3 +38,10 @@ li div {
 .winner {
     color: rgb(240, 167, 40);
 }
+
+.view {
+    color: gray;
+    font-size: 13px;
+    text-decoration: underline;
+    cursor: pointer;
+}

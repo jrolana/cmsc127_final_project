@@ -85,7 +85,7 @@ if (empty($adminID)) {
             if ($hackathons) {
                 while ($hackathon = $hackathons->fetch_assoc()) {
 
-                    echo "<tr>" .
+                    echo "<tr class='projects'>" .
                         "<td>" . $hackathon["hackathonID"] . "</td>" .
                         "<td>" . $hackathon["theme"] . "</td>" .
                         "<td>" . $hackathon["dateStart"] . "</td>" .
@@ -122,6 +122,7 @@ if (empty($adminID)) {
                                 <input type='hidden' name='hackathonID' value='{$hackathon['hackathonID']}' />
                                 <button>Delete</button>
                             </form>
+                            <button class='view'>View Project</button>
                         </td>";
                     echo "</tr>";
 
@@ -132,6 +133,22 @@ if (empty($adminID)) {
             ?>
         </table>
     </main>
+
+    <script>
+        const projects = document.querySelectorAll('.projects');
+
+        for (const project of projects) {
+            const select = project.querySelector('select');
+            const viewButton = project.querySelector('.view');
+
+            viewButton.addEventListener('click', () => {
+                if (select.value != 'None') {
+                    window.location.href = `/cmsc127_final_project/project/?id=${select.value}`;
+                }
+            })
+
+        }
+    </script>
 </body>
 
 </html>
